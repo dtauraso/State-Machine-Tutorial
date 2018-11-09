@@ -151,13 +151,10 @@ vars = {
 			['children',  [['0', [ ['*', '0'] ]]]],
 			['functions', [['0', returnTrue ]]]]],
 
-			# ( * # & * )
 			['*', [
 				['next', [['0', [ ['#', '0'] ]], ['1', [  ]]]],
 				['children',  [['0', [  ] ], ['1', []] ]],
 				['functions', [['0', isAsterisk ], ['1', isAsterisk]]]]],
-			# make a simpler version so they can see the base code of what they have to use
-			# (word #)
 			['#', [
 				['next', [['0', [ ['&', '0'] ]] ]],
 				['children',  [['0', [  ]] ]],
