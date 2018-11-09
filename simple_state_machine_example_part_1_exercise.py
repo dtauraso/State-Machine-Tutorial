@@ -84,10 +84,10 @@ parents = {
 
 	'(' : {'0':{}},
 	')' : {'0':{}},
-	'stuff' : {'0':{}},
-	'word' : {'0':{'stuff': '0'}, '1':{}},
-	'#' : {'0':{'stuff': '0'}, '1':{}, '2':{}, '3':{}},
-	'null' : {'0':{'stuff': '0'}},
+	'letters_and_digits' : {'0':{}},
+	'letters' : {'0':{'letters_and_digits': '0'}, '1':{}},
+	'digit' : {'0':{'letters_and_digits': '0'}, '1':{}, '2':{}, '3':{}},
+	'No letters and no digits' : {'0':{'letters_and_digits': '0'}},
 	'end' : {'0':{}}
 
 }
@@ -133,24 +133,24 @@ vars = {
 			['children',  [['0', [  ]]]],
 			['functions', [['0', isLeftParenthesis ]]]]],
 
-		['stuff', [
+		['letters_and_digits', [
 			['next', [['0', [  ]]]],
 			['children',  [['0', [  ]]]],
 			['functions', [['0', returnTrue ]]]]],
 
 
-			['word', [
+			['letters', [
 				['next', [['0', [  ]] ]],
 				['children',  [['0', [  ]] ]],
 				['functions', [['0', isWord ] ]]]],
 			# make a simpler version so they can see the base code of what they have to use
 			# (word #)
-			['#', [
+			['digit', [
 				['next', [['0', [  ]] ]],
 				['children',  [['0', [  ]] ]],
 				['functions', [['0', isNumber ] ]]]],
 
-			['null', [
+			['No letters and no digits', [
 				['next', [['0', [   ]]]],
 				['children',  [['0', [  ]]]],
 				['functions', [['0', notWordNotNumber ]]]]],
