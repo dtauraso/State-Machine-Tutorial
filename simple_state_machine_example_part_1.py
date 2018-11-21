@@ -38,12 +38,12 @@ def isWord(node, var_store):
 
 			letter += input_[i]
 			i += 1
-
+			#print(input_[i])
 		if len(letter) > 0:
 			print(letter)
 
-		var_store['i'] = i
-		return True
+			var_store['i'] = i
+			return True
 	return False
 
 def isNumber(node, var_store):
@@ -64,8 +64,8 @@ def isNumber(node, var_store):
 		if len(collected_digit) > 0:
 			print(collected_digit)
 
-		var_store['i'] = i
-		return True
+			var_store['i'] = i
+			return True
 	return False
 
 def isCharacter(node, var_store, character):
@@ -174,7 +174,7 @@ vars = {
 example of planning out the states before you actually add them in
 '''
 
-hcssm.visit(['(', '0'], vars, 0, True)
+#hcssm.visit(['(', '0'], vars, 0, True)
 #
 '''
 (word##)
@@ -187,5 +187,12 @@ hcssm.visit(['(', '0'], vars, 0, True)
 ()
 '''
 test_list = ['(Im_a_word5)', '(Im_a_word56)', '(4Im_a_word5)', '()']
-
+for test in test_list:
+	vars['input'] = test
+	vars['i'] = 0
+	print("start")
+	hcssm.visit(['(', '0'], vars, 0, True)
+	print("end")
+	print()
+# test results: fail, pass, pass, pass
 print('done w machine')

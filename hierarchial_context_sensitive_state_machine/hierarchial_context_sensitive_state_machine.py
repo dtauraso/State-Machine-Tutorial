@@ -15,6 +15,7 @@ def makeOrderedDicts(next_states):
 	return case_state_case_entries
 def makedTupleOfOrderedDicts(lists):
 
+
 	'''
 	structure example
 	['value_ignore' , 	 [
@@ -23,6 +24,7 @@ def makedTupleOfOrderedDicts(lists):
 		['functions' , [['0', parseChar], ['valid_op', validOp]]]]
 	'''
 	state_name = lists[0]
+	#print(lists)
 	next_states = lists[1][0]
 
 	children = lists[1][1]
@@ -139,7 +141,7 @@ def getNextStates(tracker, continuing_next_states, indents, graph):
 			return [tracker, [], indents]
 
 
-		continuing_next_states = [list(a) for a in graph['node_graph2'][state1]['next'][case1].items()]
+		continuing_next_states = [list(a) for a in graph['node_graph3'][state1]['next'][case1].items()]
 
 
 	return [tracker, continuing_next_states, indents]
@@ -181,7 +183,7 @@ def printLevels(graph, state, case_, indents, m, chosen_level):
 def printLevelsBounds(graph, state, case_, indents, m, input_length, chosen_start_level, chosen_end_level):
 
 
-	print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph2'][state]['functions'][case_].__name__ + ',', str(indents) + ')')#, '|' + graph['input'][m] + '|'/*,'i ='*/, m/*, input_length*/)
+	print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph3'][state]['functions'][case_].__name__ + ',', str(indents) + ')')#, '|' + graph['input'][m] + '|'/*,'i ='*/, m/*, input_length*/)
 		#console.log()
 
 
@@ -199,7 +201,9 @@ def visit(node, graph, indents, debug):
 	# does depth first tranversal for each subgraph(each subgraph is a state name that has children)
 	# does breath first traversal for within each subgraph
 	#print("got here")
-	graph['node_graph2'] = od([ makedTupleOfOrderedDicts(a) for a in graph['node_graph2']])
+	#print(graph['node_graph2'])
+	#[print(a) for a in graph['node_graph2']]
+	graph['node_graph3'] = od([ makedTupleOfOrderedDicts(a) for a in graph['node_graph2']])
 	x = node[0]
 	y = node[1]
 	next_states = [node]
@@ -239,8 +243,8 @@ def visit(node, graph, indents, debug):
 			#	case_ = case__
 			#print('|' + state + '|', case_)
 
-			maybe_parent = graph['node_graph2'][ state ]['children'][ case_ ]
-			did_function_pass = graph['node_graph2'][state]['functions'][case_]([state, case_], graph)
+			maybe_parent = graph['node_graph3'][ state ]['children'][ case_ ]
+			did_function_pass = graph['node_graph3'][state]['functions'][case_]([state, case_], graph)
 			#print(did_function_pass)
 			if (did_function_pass):
 				#print('next states', graph['node_graph2'][state]['next'][case_])
@@ -283,7 +287,7 @@ def visit(node, graph, indents, debug):
 					bottom[0].child = [state, case_]
 
 					# getting the children
-					children = [list(a) for a in graph['node_graph2'][state]['children'][case_].items()]
+					children = [list(a) for a in graph['node_graph3'][state]['children'][case_].items()]
 					#print('next_states', children)
 					children = makeNextStates(children)
 					next_states = []
@@ -306,7 +310,7 @@ def visit(node, graph, indents, debug):
 					# there is a problem with how dict_items is being used
 
 					#print(graph['node_graph2'][state]['next'])
-					next_states = [list(a) for a in graph['node_graph2'][state]['next'][case_].items()]
+					next_states = [list(a) for a in graph['node_graph3'][state]['next'][case_].items()]
 
 
 					next_states = makeNextStates(next_states)
@@ -369,7 +373,7 @@ def visit(node, graph, indents, debug):
 
 			print('error at ')
 			print(getIndents(indents), next_states, 'on')
-			print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph2'][state]['functions'][case_].__name__ + ',', str(indents) + ')')
+			print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph3'][state]['functions'][case_].__name__ + ',', str(indents) + ')')
 			break
 
 			#print(next_states, 'have failed so your state machine is incomplete')
