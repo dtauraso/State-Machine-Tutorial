@@ -143,8 +143,6 @@ vars = {
 				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]]]],
 				['children',  [['0', [  ]], ['1', []] ]],
 				['functions', [['0', isWord ], ['1', isWord]]]]],
-			# make a simpler version so they can see the base code of what they have to use
-			# (word #)
 			['digit', [
 				['next', [['0', [ ['letters', '1'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [ ]] ]],
 				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []] ]],
