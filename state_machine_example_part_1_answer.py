@@ -127,7 +127,7 @@ vars = {
 
 		# next states are these ['(','0'], [')','0'], ['error', '0']
 
-
+		# start state
 		['(' , [
 			['next', [['0', [ ['letters_and_digits', '0'] ]]]],
 			['children',  [['0', [  ]]]],
@@ -159,6 +159,7 @@ vars = {
 			['children',  [['0', []]]],
 			['functions', [['0', isRightParenthesis ]]]]],
 
+		# end state
 		['end', [
 			['next', [['0', []]]],
 			['children',  [['0', []]]],
