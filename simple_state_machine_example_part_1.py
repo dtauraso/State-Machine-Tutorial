@@ -1,5 +1,6 @@
-import hierarchial_context_sensitive_state_machine.hierarchial_context_sensitive_state_machine as hcssm
-
+import sys
+sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
+import hierarchial_context_sensitive_state_machine as hcssm
 from collections import OrderedDict as od
 
 
@@ -42,8 +43,8 @@ def isWord(node, var_store):
 		if len(letter) > 0:
 			print(letter)
 
-			var_store['i'] = i
-			return True
+		var_store['i'] = i
+		return True
 	return False
 
 def isNumber(node, var_store):
@@ -64,8 +65,8 @@ def isNumber(node, var_store):
 		if len(collected_digit) > 0:
 			print(collected_digit)
 
-			var_store['i'] = i
-			return True
+		var_store['i'] = i
+		return True
 	return False
 
 def isCharacter(node, var_store, character):
@@ -129,26 +130,26 @@ vars = {
 
 
 		['(' , [
-			['next', [['0', [  ]]]],
+			['next', [['0', [ ['letters_and_digits', '0'] ]]]],
 			['children',  [['0', [  ]]]],
 			['functions', [['0', isLeftParenthesis ]]]]],
 
 		['letters_and_digits', [
-			['next', [['0', [  ]]]],
-			['children',  [['0', [  ]]]],
+			['next', [['0', [ [')','0'] ]]]],
+			['children',  [['0', [ ['letters', '0'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
 			['functions', [['0', returnTrue ]]]]],
 
 
 			['letters', [
-				['next', [['0', [  ]] ]],
-				['children',  [['0', [  ]] ]],
-				['functions', [['0', isWord ] ]]]],
+				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]]]],
+				['children',  [['0', [  ]], ['1', []] ]],
+				['functions', [['0', isWord ], ['1', isWord]]]]],
 			# make a simpler version so they can see the base code of what they have to use
 			# (word #)
 			['digit', [
-				['next', [['0', [  ]] ]],
-				['children',  [['0', [  ]] ]],
-				['functions', [['0', isNumber ] ]]]],
+				['next', [['0', [ ['letters', '1'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [ ]] ]],
+				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []] ]],
+				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber] ]]]],
 
 			['No letters and no digits', [
 				['next', [['0', [   ]]]],
@@ -157,7 +158,7 @@ vars = {
 
 
 		[')' , [
-			['next', [['0', [  ]]]],
+			['next', [['0', [ ['end','0'] ]]]],
 			['children',  [['0', []]]],
 			['functions', [['0', isRightParenthesis ]]]]],
 
