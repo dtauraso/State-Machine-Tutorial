@@ -1,4 +1,3 @@
-#import hierarchial_context_sensitive_state_machine.hierarchial_context_sensitive_state_machine as hcssm
 import sys
 sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
 import hierarchial_context_sensitive_state_machine as hcssm
