@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
-import hierarchial_context_sensitive_state_machine as hcssm
+sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
+import contextual_state_chart as hcssm
 
 from collections import OrderedDict as od
 
@@ -103,8 +103,8 @@ vars = {
 		# next states are these ['(','0'], [')','0'], ['error', '0']
 
 		['remove_white_space', [
-			['next', [['0', [['(', '0' ] ]]]],
-			['children',  [['0', [ ]]]],
+			['next', [ ] ],
+			['children',  [ ] ],
 			['functions', [['0', removeWhiteSpace ]]],
 			['parents', [   ['0', [['root', '0']]  ]   ] ]
 			# {'0':{'root': '0'}}
@@ -112,8 +112,8 @@ vars = {
 
 
 		['(' , [
-			['next', [['0', [['(','0'], [')','0'], ['error', '0']]]]],
-			['children',  [['0', []]]],
+			['next', [ ]],
+			['children',  [ ]],
 			['functions', [['0', incrementLeftCount ]]],
 			['parents', [   ['0', []  ]   ] ]
 

@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
-import hierarchial_context_sensitive_state_machine as hcssm
+sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
+import contextual_state_chart as hcssm
 
 from collections import OrderedDict as od
 

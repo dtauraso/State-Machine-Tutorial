@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
-import hierarchial_context_sensitive_state_machine as hcssm
+sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
+import contextual_state_chart as hcssm
 from collections import OrderedDict as od
 
 
@@ -125,7 +125,7 @@ vars = {
 
 		['letters_and_digits', [
 			['next', [['0', [ [')','0'] ]]]],
-			['children',  [['0', [ ['letters', '0'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
+			['children',  [['0', [ ['letters', '1'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
 			['functions', [['0', returnTrue ]]],
 			['parents', [['0', [ ] ]]]
 
@@ -133,16 +133,16 @@ vars = {
 
 
 			['letters', [
-				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]]]],
-				['children',  [['0', [  ]], ['1', []] ]],
-				['functions', [['0', isWord ], ['1', isWord]]],
-				['parents', [['0', [['letters_and_digits', '0']] ], ['1', []] ]]
+				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]], ['2', []]]],
+				['children',  [['0', [  ]], ['1', []], ['2', []] ]],
+				['functions', [['0', isWord ], ['1', isWord], ['2', isWord]]],
+				['parents', [['0', [] ], ['1', [['letters_and_digits', '0']]], ['2', []] ]]
 				]],
 			['digit', [
-				['next', [['0', [ ['letters', '1'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [ ]] ]],
-				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []] ]],
-				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber] ]],
-				['parents', [['0', [['letters_and_digits', '0']] ], ['1', []], ['2', []], ['3', []] ]] # the ones with empty lists these aren't in the dict
+				['next', [['0', [ ['letters', '0'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [['digit', '4'] ]], ['4', [['letters', '2']]] ]],
+				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []], ['4', []] ]],
+				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber], ['4', isNumber] ]],
+				['parents', [['0', [['letters_and_digits', '0']] ], ['1', []], ['2', []], ['3', []], ['4', []] ]] # the ones with empty lists these aren't in the dict
 				]],
 
 			['No letters and no digits', [
@@ -179,20 +179,23 @@ example of planning out the states before you actually add them in
 #hcssm.visit(['(', '0'], vars, 0, True)
 #
 '''
-(word##)
-(#word#)
+
+(word##word)
+(#word##)
 ()
 
-(Im_a_word5)
 (Im_a_word56)
 (4Im_a_word5)
 ()
 '''
 #print(['1', []])
-test_list = ['(Im_a_word5)', '(Im_a_word56)', '(4Im_a_word5)', '()']
+# first one is just a test to prove the machine finds an error with the input and
+# quits gracefully
+test_list = ['(Im_a_word5)', '(Im_a_word56f)', '(4Im_a_word53)', '()']
 for test in test_list:
 	vars['input'] = test
 	vars['i'] = 0
+	print(test)
 	print("start")
 	hcssm.visit(['(', '0'], vars, 0, True)
 	print("end")

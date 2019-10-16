@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(1, '/Users/David/Documents/github/hierarchial_context_sensitive_state_machine')
-import hierarchial_context_sensitive_state_machine as hcssm
+sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
+import contextual_state_chart as hcssm
 
 from collections import OrderedDict as od
 
@@ -114,7 +114,7 @@ vars = {
 		# here is an example of next states with a first name and a second name
 		# ['(','0'], [')','0'], ['error', '0']
 
-
+		# make sure this graphk matches the presentation
 		['(' , [
 			['next', [['0', [ ['letters_and_digits', '0'] ]]]],
 			['children',  [['0', [  ]]]],
@@ -124,20 +124,21 @@ vars = {
 
 		['letters_and_digits', [
 			['next', [['0', [ [')','0'] ]]]],
-			['children',  [['0', [ ['letters', '0'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
+			# letter's path is done
+			['children',  [['0', [ ['letters', '1'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
 			['functions', [['0', returnTrue ]]],
 			['parents', [['0', [ ]  ] ]]
 			]],
 
 			# the indent from letters_and_digits to letters means we are inside a lower level
 			['letters', [
-				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]]]],
+				['next', [['0', [ ['', ''] ]], ['1', [ ['digit', '3']  ]], ['2', [  ]]   ]],
 				['children',  [['0', [  ]], ['1', []] ]],
 				['functions', [['0', isWord ], ['1', isWord]]],
 				['parents', [['0', [ ['letters_and_digits', '0'] ]  ], ['1', []] ]]
 				]],
 			['digit', [
-				['next', [['0', [ ['letters', '1'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [ ]] ]],
+				['next', [['0', [ ['', ''] ]],    ['1', [ ['', '']  ]], ['2', [['', '' ]]], ['3', [['digit', '4' ]]], ['4', [['letters', '2']]] ]],
 				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []] ]],
 				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber] ]],
 				['parents', [['0', [ ['letters_and_digits', '0'] ]  ], ['1', []], ['2', []], ['3', []] ]]
