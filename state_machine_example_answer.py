@@ -93,17 +93,16 @@ vars = {
 	'node_graph2' : [
 
 
+		# current state -> [current_context [list of (next_state, next_context)]]
 
 		#text template:
 
-		#['first_name', [
-		#	['next', [['second_name', [ <next state would be here> ]]]],
-		#	['children',  [['second_name', [ <child would be here> ]]]],
-		#	['functions', [['second_name', returnTrue ]]],
-		# 	['parents',   [['second_name', [ <child would be here> ]]]]
-		#   ]]],
-		# <child would look like this> = [ 'child_state_first_name', 'child_state_second_name']
-		# <next state would look like this> = [ 'next_state_first_name', 'next_state_second_name']
+		#[	'name', [
+		#	['next', [['0', [ <next state would be here> ]]]],
+		#	['children',  [['0', [ <child would be here> ]]]],
+		#	['functions', [['0', returnTrue ]]]]],
+		# <child case would be here> = [ 'child_state', 'child_case']
+		# <next state would be here> = [ 'next_state', 'next_state_case']
 
 		# the style of choosing which next (state, case) to run is done using the if elif else style
 		# if
@@ -111,45 +110,44 @@ vars = {
 		# elif
 		# else
 
-		# here is an example of next states with a first name and a second name
-		# ['(','0'], [')','0'], ['error', '0']
+		# next states are these ['(','0'], [')','0'], ['error', '0']
 
-		# make sure this graphk matches the presentation
+		# start state
 		['(' , [
 			['next', [['0', [ ['letters_and_digits', '0'] ]]]],
 			['children',  [['0', [  ]]]],
 			['functions', [['0', isLeftParenthesis ]]],
-			['parents', [['0', [ ]  ] ]]
+			['parents', [['0', [] ]]]
+
 			]],
 
 		['letters_and_digits', [
 			['next', [['0', [ [')','0'] ]]]],
-			# letter's path is done
 			['children',  [['0', [ ['letters', '1'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
 			['functions', [['0', returnTrue ]]],
-			['parents', [['0', [ ]  ] ]]
+			['parents', [['0', [ ] ]]]
+
 			]],
 
-			# the indent from letters_and_digits to letters means we are inside a lower level
+
 			['letters', [
-				['next', [['0', [ ['', ''] ]], ['1', [ ['digit', '3']  ]], ['2', [  ]]   ]],
-				['children',  [['0', [  ]], ['1', []] ]],
-				['functions', [['0', isWord ], ['1', isWord]]],
-				['parents', [['0', [ ['letters_and_digits', '0'] ]  ], ['1', []] ]]
+				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]], ['2', []]]],
+				['children',  [['0', [  ]], ['1', []], ['2', []] ]],
+				['functions', [['0', isWord ], ['1', isWord], ['2', isWord]]],
+				['parents', [['0', [] ], ['1', [['letters_and_digits', '0']]], ['2', []] ]]
 				]],
 			['digit', [
-				['next', [['0', [ ['', ''] ]],    ['1', [ ['', '']  ]], ['2', [['', '' ]]], ['3', [['digit', '4' ]]], ['4', [['letters', '2']]] ]],
-				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []] ]],
-				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber] ]],
-				['parents', [['0', [ ['letters_and_digits', '0'] ]  ], ['1', []], ['2', []], ['3', []] ]]
+				['next', [['0', [ ['letters', '0'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [['digit', '4'] ]], ['4', [['letters', '2']]] ]],
+				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []], ['4', []] ]],
+				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber], ['4', isNumber] ]],
+				['parents', [['0', [['letters_and_digits', '0']] ], ['1', []], ['2', []], ['3', []], ['4', []] ]] # the ones with empty lists these aren't in the dict
 				]],
 
-			# this is an end state cause there are no next states
 			['No letters and no digits', [
 				['next', [['0', [   ]]]],
 				['children',  [['0', [  ]]]],
 				['functions', [['0', notWordNotNumber ]]],
-				['parents', [['0', [ ['letters_and_digits', '0'] ]  ] ]]
+				['parents', [['0', [['letters_and_digits', '0' ]] ]]]
 				]],
 
 
@@ -157,15 +155,15 @@ vars = {
 			['next', [['0', [ ['end','0'] ]]]],
 			['children',  [['0', []]]],
 			['functions', [['0', isRightParenthesis ]]],
-			['parents', [['0', [ ]  ] ]]
+			['parents', [['0', [ ] ]]]
 			]],
 
-			# this is an end state cause there are no next states
+		# end state
 		['end', [
 			['next', [['0', []]]],
 			['children',  [['0', []]]],
 			['functions', [['0', returnTrue ]]],
-			['parents', [['0', [ ]  ] ]]
+			['parents', [['0', [ ] ]]]
 			]]
 
 
@@ -198,11 +196,13 @@ for test in fails_list:
 	print("end")
 	print()
 
-pass_list = ['(Im_a_word56)', '(4Im_a_word5)', '()']
+pass_list = ['(Im_a_word56)', '(4Im_a_word56)', '()']
 print("passes")
 for test in pass_list:
 	vars['input'] = test
 	vars['i'] = 0
+	print(test)
+
 	print("start")
 	hcssm.visit(['(', '0'], vars, 0, True)
 	print("end")
