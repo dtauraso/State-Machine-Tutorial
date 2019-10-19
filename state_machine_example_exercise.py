@@ -116,7 +116,7 @@ vars = {
 
 		# start state
 		['(' , [
-			['next', [['0', [ ['letters_and_digits', '0'] ]]]],
+			['next', [['0', [ [ ] ]]]],
 			['children',  [['0', [  ]]]],
 			['functions', [['0', isLeftParenthesis ]]],
 			['parents', [['0', [] ]]]
@@ -124,8 +124,8 @@ vars = {
 			]],
 
 		['letters_and_digits', [
-			['next', [['0', [ [')','0'] ]]]],
-			['children',  [['0', [ ['letters', '1'], ['digit', '0'], ['No letters and no digits', '0'] ]]]],
+			['next', [['0', [ [ ] ]]]],
+			['children',  [['0', [ [ ], [ ], [ ] ]]]],
 			['functions', [['0', returnTrue ]]],
 			['parents', [['0', [ ] ]]]
 
@@ -133,13 +133,13 @@ vars = {
 
 
 			['letters', [
-				['next', [['0', [ ['digit', '1'] ]], ['1', [ ['digit', '3']  ]], ['2', []]]],
+				['next', [['0', [ [ ] ]], ['1', [ [ ]  ]], ['2', []]]],
 				['children',  [['0', [  ]], ['1', []], ['2', []] ]],
 				['functions', [['0', isWord ], ['1', isWord], ['2', isWord]]],
 				['parents', [['0', [] ], ['1', [['letters_and_digits', '0']]], ['2', []] ]]
 				]],
 			['digit', [
-				['next', [['0', [ ['letters', '0'] ]],    ['1', [ ['digit', '2']  ]], ['2', [ ]], ['3', [['digit', '4'] ]], ['4', [['letters', '2']]] ]],
+				['next', [['0', [ [ ] ]],    ['1', [ [ ]  ]], ['2', [ ]], ['3', [[ ] ]], ['4', [[ ]]] ]],
 				['children',  [['0', [  ]], ['1', []], ['2', []], ['3', []], ['4', []] ]],
 				['functions', [['0', isNumber ], ['1', isNumber], ['2', isNumber], ['3', isNumber], ['4', isNumber] ]],
 				['parents', [['0', [['letters_and_digits', '0']] ], ['1', []], ['2', []], ['3', []], ['4', []] ]] # the ones with empty lists these aren't in the dict
@@ -154,7 +154,7 @@ vars = {
 
 
 		[')' , [
-			['next', [['0', [ ['end','0'] ]]]],
+			['next', [['0', [ [ ] ]]]],
 			['children',  [['0', []]]],
 			['functions', [['0', isRightParenthesis ]]],
 			['parents', [['0', [ ] ]]]
