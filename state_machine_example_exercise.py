@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
-import contextual_state_chart as hcssm
+import contextual_state_chart as csc
+
 from collections import OrderedDict as od
 
 
@@ -41,8 +42,7 @@ def isWord(node, var_store):
 			i += 1
 			#print(input_[i])
 		if len(letter) > 0:
-			#print('my word')
-			#print(letter)
+			print(letter)
 
 			var_store['i'] = i
 			return True
@@ -64,8 +64,7 @@ def isNumber(node, var_store):
 			collected_digit += input_[i]
 			i += 1
 		if len(collected_digit) > 0:
-			#print('my number')
-			#print(collected_digit)
+			print(collected_digit)
 
 			var_store['i'] = i
 			return True
@@ -84,14 +83,13 @@ def notWordNotNumber(node, var_store):
 
 
 
+
 vars = {
-# missing 1 )
-	# update input
-	# make a testing loop
-	'input' : '(Im_a_word55)', # '(Im_a_word56)'
+	'input' : '',
 	'i' : 0,
 
-	# this control graph uses string for states and cases
+
+	# this control graph uses string for the state names
 	'node_graph2' : [
 
 
@@ -179,26 +177,23 @@ example of planning out the states before you actually add them in
 #hcssm.visit(['(', '0'], vars, 0, True)
 #
 '''
-
-(word##word)
-(#word##)
+(word##)
+(#word#)
 ()
 
+(Im_a_word5)
 (Im_a_word56)
 (4Im_a_word5)
 ()
 '''
-#print(['1', []])
-# first one is just a test to prove the machine finds an error with the input and
-# quits gracefully
-
+ 
 fails_list = ['(Im_a_word5)', '(Im_a_word)', '(Im8_a_word)', ')Im8_a_word(']
 print("fails")
 for test in fails_list:
 	vars['input'] = test
 	vars['i'] = 0
 	print("start")
-	hcssm.visit(['(', '0'], vars, 0, True)
+	csc.visit(['(', '0'], vars, 0, True)
 	print("end")
 	print()
 
@@ -210,7 +205,7 @@ for test in pass_list:
 	print(test)
 
 	print("start")
-	hcssm.visit(['(', '0'], vars, 0, True)
+	csc.visit(['(', '0'], vars, 0, True)
 	print("end")
 	print()
 print('done w machine')

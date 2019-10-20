@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(1, '/Users/David/Documents/github/contextual-state-chart')
-import contextual_state_chart as hcssm
+import contextual_state_chart as csc
 
 from collections import OrderedDict as od
 
@@ -85,7 +85,7 @@ def notWordNotNumber(node, var_store):
 
 
 vars = {
-	'input' : '(Im_a_word55)',
+	'input' : '',
 	'i' : 0,
 
 
@@ -193,7 +193,7 @@ for test in fails_list:
 	vars['input'] = test
 	vars['i'] = 0
 	print("start")
-	hcssm.visit(['(', '0'], vars, 0, True)
+	csc.visit(['(', '0'], vars, 0, True)
 	print("end")
 	print()
 
@@ -205,7 +205,7 @@ for test in pass_list:
 	print(test)
 
 	print("start")
-	hcssm.visit(['(', '0'], vars, 0, True)
+	csc.visit(['(', '0'], vars, 0, True)
 	print("end")
 	print()
 print('done w machine')
