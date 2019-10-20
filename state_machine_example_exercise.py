@@ -191,14 +191,26 @@ example of planning out the states before you actually add them in
 #print(['1', []])
 # first one is just a test to prove the machine finds an error with the input and
 # quits gracefully
-test_list = ['(Im_a_word5)', '(Im_a_word56f)', '(4Im_a_word53)', '()']
-for test in test_list:
+
+fails_list = ['(Im_a_word5)', '(Im_a_word)', '(Im8_a_word)', ')Im8_a_word(']
+print("fails")
+for test in fails_list:
 	vars['input'] = test
 	vars['i'] = 0
-	print(test)
 	print("start")
 	hcssm.visit(['(', '0'], vars, 0, True)
 	print("end")
 	print()
-# test results: fail, pass, pass, pass
+
+pass_list = ['(Im_a_word56more_letters)', '(4Im_a_word56)', '()']
+print("passes")
+for test in pass_list:
+	vars['input'] = test
+	vars['i'] = 0
+	print(test)
+
+	print("start")
+	hcssm.visit(['(', '0'], vars, 0, True)
+	print("end")
+	print()
 print('done w machine')

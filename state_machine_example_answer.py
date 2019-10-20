@@ -186,6 +186,7 @@ example of planning out the states before you actually add them in
 (4Im_a_word5)
 ()
 '''
+ 
 fails_list = ['(Im_a_word5)', '(Im_a_word)', '(Im8_a_word)', ')Im8_a_word(']
 print("fails")
 for test in fails_list:
@@ -196,7 +197,7 @@ for test in fails_list:
 	print("end")
 	print()
 
-pass_list = ['(Im_a_word56)', '(4Im_a_word56)', '()']
+pass_list = ['(Im_a_word56more_letters)', '(4Im_a_word56)', '()']
 print("passes")
 for test in pass_list:
 	vars['input'] = test
